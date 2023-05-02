@@ -12,6 +12,16 @@
   margin: 10px auto;
 }
 
+.card .editDelete {
+  display: flex;
+  justify-content: center;
+}
+
+.card button {
+  padding: 12px 20px;
+  cursor: pointer;
+}
+
 .container {
   background: #0e1119;
   display: flex;
@@ -90,4 +100,16 @@ button.ghost:hover {
   background-color: #ffffff;
   color: #0e1119;
   cursor: pointer;
+}
+
+.grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media screen and (max-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

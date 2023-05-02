@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { v4 as uuid } from "uuid";
 
 export default class UsersForm extends Component {
     constructor(props) {
@@ -25,10 +26,11 @@ export default class UsersForm extends Component {
         const newUser = {
             name: this.state.name,
             email: this.state.email,
-            gen: this.state.gen
+            gen: this.state.gen,
+            id: uuid()
         };
         this.props.handleAddUser(newUser);
-        this.setState({ name: '', email: '', gen: '' });
+        this.setState({ name: '', email: '', gen: '', id: uuid() });
     }
 
     render() {

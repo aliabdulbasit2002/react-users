@@ -31,18 +31,27 @@ function App() {
 
   const handleAddUser = (newUser) => {
     setUser(prevUsers => [...prevUsers, newUser]);
-    console.log(newUser);
   }
 
   const handleDeleteUser = (id) => {
     setUser(user.filter((user) => user.id !== id))
   }
 
+  const saveChanges = (id, update) => {
+    setUser(user.map((item) => {
+      if (item.id === id) {
+        return update
+      }
+      return item
+    }))
+
+  }
+
 
   return (
     <div className="App">
       <UsersForm handleAddUser={handleAddUser} />
-      <Users users={user} onDelete={handleDeleteUser} />
+      <Users saveChanges={saveChanges} users={user} onDelete={handleDeleteUser} editUser={saveChanges} />
     </div>
   )
 }

@@ -1,17 +1,36 @@
-import { v4 as uuid } from "uuid";
+import EditUsersForm from "./EditUsersForm";
+import { useState } from "react";
 
-const Users = ({ users, onDelete }) => {
+
+const Users = ({ users, onDelete, editUser, saveChanges }) => {
+    const [showModal, setShowModal] = useState(false);
+
+    const handleButtonClick = () => {
+        setShowModal(!showModal);
+    }
+
+    const handleModalClose = () => {
+        setShowModal(!showModal);
+    }
+
     return (
         <div className="grid">
-            {users.map((user) => {
-                const { name, email, gen } = user;
+            {users.map((user, index) => {
                 return (
-                    <div className="card" key={uuid()}>
-                        <p>{name}</p>
-                        <p>{email}</p>
-                        <p>{gen}</p>
+                    <div className="card" key={user.id}>
+                        <p>{user.name}</p>
+                        <p>{user.email}</p>
+                        <p>{user.gen}</p>
                         <div className="editDelete">
-                            <button>Edit</button>
+                            <button onClick={handleButtonClick}>Edit</button>
+                            {showModal
+                                && <EditUsersForm
+                                    modalClose={handleModalClose}
+                                    editUser={editUser}
+                                    user={user}
+                                    saveChanges={saveChanges}
+                                />
+                            }
                             <button onClick={() => onDelete(user.id)}>Delete</button>
                         </div>
                     </div>

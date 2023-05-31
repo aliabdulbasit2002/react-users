@@ -1,3 +1,4 @@
+import { Grid, GridItem } from "@chakra-ui/react";
 import "./App.css";
 import Users from "./Components/Users";
 import UsersForm from "./Components/UsersForm";
@@ -47,15 +48,19 @@ function App() {
   // };
 
   return (
-    <div className="App">
-      <UsersForm />
-      <Users
-      // saveChanges={saveChanges}
-      // users={user}
-      // onDelete={handleDeleteUser}
-      // editUser={saveChanges}
-      />
-    </div>
+    <Grid templateColumns="repeat(12,1fr)">
+      <GridItem colSpan={{ base: 12, md: 6 }}>
+        <UsersForm />
+      </GridItem>
+      <GridItem colSpan={{ base: 12, md: 6 }} mt={{ base: 10, md: 0 }}>
+        <Users
+        // saveChanges={saveChanges}
+        // users={user}
+        // onDelete={handleDeleteUser}
+        // editUser={saveChanges}
+        />
+      </GridItem>
+    </Grid>
   );
 }
 

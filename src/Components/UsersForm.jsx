@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
 import { addUser } from "../features/usersSlice";
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+} from "@chakra-ui/react";
 
 const UsersForm = () => {
   const [formData, setFormData] = useState({
@@ -31,32 +38,29 @@ const UsersForm = () => {
   };
 
   return (
-    <div className="">
-      <form onSubmit={handleSubmit}>
-        <h1>Class Form</h1>
-        <label>
-          Name:
-          <input type="text" name="name" value={name} onChange={handleChange} />
-        </label>
-        <br />
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Gen:
-          <input type="text" name="gen" value={gen} onChange={handleChange} />
-        </label>
-        <br />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <Heading>User Form</Heading>
+      <FormControl>
+        <FormLabel>Name </FormLabel>
+        <Input type="text" name="name" value={name} onChange={handleChange} />
+      </FormControl>
+      <FormControl>
+        <FormLabel>Email :</FormLabel>
+        <Input
+          type="email"
+          name="email"
+          value={email}
+          onChange={handleChange}
+        />
+      </FormControl>
+      <FormControl>
+        <FormLabel>Gen :</FormLabel>
+        <Input type="text" name="gen" value={gen} onChange={handleChange} />
+      </FormControl>
+      <Button type="submit" me="auto" mt={4}>
+        Submit
+      </Button>
+    </form>
   );
 };
 

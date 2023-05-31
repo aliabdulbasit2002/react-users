@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import EditUsersForm from "./EditUsersForm";
 import { useState } from "react";
+import { Box, Button, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 
 const Users = () => {
   const [showModal, setShowModal] = useState(false);
@@ -16,15 +17,30 @@ const Users = () => {
   const { users } = useSelector((state) => state.users);
 
   return (
-    <div className="grid">
-      {users.map((user, index) => {
+    <SimpleGrid minChildWidth="250px" gap={4}>
+      {users.map((user) => {
         return (
-          <div className="card" key={user.id}>
-            <p>{user.name}</p>
-            <p>{user.email}</p>
-            <p>{user.gen}</p>
-            <div className="editDelete">
-              <button onClick={handleButtonClick}>Edit</button>
+          <Box key={user.id} bg="teal.400" p={3} color="gray.100">
+            <Text>
+              <Text as="span" fontWeight="bold">
+                Name:
+              </Text>
+              {user.name}
+            </Text>
+            <Text>
+              <Text as="span" fontWeight="bold">
+                Email:
+              </Text>
+              {user.email}
+            </Text>
+            <Text>
+              <Text as="span" fontWeight="bold">
+                Gen:
+              </Text>
+              {user.gen}
+            </Text>
+            <Flex gap={3}>
+              <Button onClick={handleButtonClick}>Edit</Button>
               {/* {showModal && (
                 <EditUsersForm
                   modalClose={handleModalClose}
@@ -33,12 +49,12 @@ const Users = () => {
                   saveChanges={saveChanges}
                 />
               )} */}
-              <button onClick={() => onDelete(user.id)}>Delete</button>
-            </div>
-          </div>
+              <Button onClick={() => onDelete(user.id)}>Delete</Button>
+            </Flex>
+          </Box>
         );
       })}
-    </div>
+    </SimpleGrid>
   );
 };
 export default Users;

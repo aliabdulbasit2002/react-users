@@ -1,8 +1,6 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import "./App.css";
 import Users from "./Components/Users";
 import UsersForm from "./Components/UsersForm";
-import { useSelector } from "react-redux";
 
 function App() {
   // const users = [
@@ -48,17 +46,12 @@ function App() {
   // };
 
   return (
-    <Grid templateColumns="repeat(12,1fr)">
+    <Grid templateColumns="repeat(12,1fr)" p={10} gap={{ base: 0, md: 4 }}>
       <GridItem colSpan={{ base: 12, md: 6 }}>
         <UsersForm />
       </GridItem>
       <GridItem colSpan={{ base: 12, md: 6 }} mt={{ base: 10, md: 0 }}>
-        <Users
-        // saveChanges={saveChanges}
-        // users={user}
-        // onDelete={handleDeleteUser}
-        // editUser={saveChanges}
-        />
+        <Users />
       </GridItem>
     </Grid>
   );

@@ -15,12 +15,6 @@ let initialState = {
       email: "Yusra@email.com",
       gen: 22,
     },
-    {
-      id: uuid(),
-      name: "Lamin",
-      email: "Lamin@email.com",
-      gen: 19,
-    },
   ],
 };
 
@@ -31,9 +25,22 @@ export const userSlice = createSlice({
     addUser: (state, action) => {
       state.users.push(action.payload);
     },
+    saveChanges: (state, action) => {
+      state.users = state.users.map((user) => {
+        if (user.id === action.payload.id) {
+          return action.payload.updatedUser;
+        }
+        return user;
+      });
+    },
+    deleteUser: (state, action) => {
+      state.users = state.users.filter((user) => {
+        if (user.id !== action.payload) return user;
+      });
+    },
   },
 });
 
-export const { addUser } = userSlice.actions;
+export const { addUser, saveChanges, deleteUser } = userSlice.actions;
 
 export default userSlice.reducer;

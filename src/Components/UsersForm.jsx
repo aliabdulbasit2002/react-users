@@ -18,7 +18,8 @@ const UsersForm = () => {
   });
   const dispatch = useDispatch();
 
-  const { name, email, gen } = formData; // Destructure values from formData
+  // Destructure values from formData
+  const { name, email, gen } = formData;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,7 +43,13 @@ const UsersForm = () => {
       <Heading>User Form</Heading>
       <FormControl>
         <FormLabel>Name </FormLabel>
-        <Input type="text" name="name" value={name} onChange={handleChange} />
+        <Input
+          type="text"
+          name="name"
+          value={name}
+          onChange={handleChange}
+          borderColor="teal"
+        />
       </FormControl>
       <FormControl>
         <FormLabel>Email :</FormLabel>
@@ -51,13 +58,20 @@ const UsersForm = () => {
           name="email"
           value={email}
           onChange={handleChange}
+          borderColor="teal"
         />
       </FormControl>
       <FormControl>
         <FormLabel>Gen :</FormLabel>
-        <Input type="text" name="gen" value={gen} onChange={handleChange} />
+        <Input
+          type="text"
+          name="gen"
+          value={gen}
+          onChange={handleChange}
+          borderColor="teal"
+        />
       </FormControl>
-      <Button type="submit" me="auto" mt={4}>
+      <Button type="submit" me="auto" mt={4} colorScheme="teal">
         Submit
       </Button>
     </form>

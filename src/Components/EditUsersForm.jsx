@@ -1,62 +1,96 @@
-import React, { Component } from 'react';
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { saveChanges } from "../features/usersSlice";
 
-export default class EditUsersForm extends Component {
-    constructor(props) {
-        super(props);
+const EditUsersForm = ({ user }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    name: user.name,
+    email: user.email,
+    gen: user.gen,
+  });
+  const { name, email, gen } = formData;
 
-        this.state = {
-            id: props.user.id,
-            name: props.user.name,
-            email: props.user.email,
-            gen: props.user.gen
-        };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let updatedUser = { id: user.id, name, email, gen };
+    dispatch(saveChanges({ id: user.id, updatedUser }));
+    onClose();
+  };
+  return (
+    <>
+      <Button onClick={onOpen}>Edit</Button>
 
-    handleChange(e) {
-        const { name, value } = e.target;
-        this.setState({ [name]: value });
-    }
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Edit User</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <form onSubmit={handleSubmit}>
+              <Heading>User Form</Heading>
+              <FormControl>
+                <FormLabel>Name </FormLabel>
+                <Input
+                  type="text"
+                  name="name"
+                  value={name}
+                  onChange={handleChange}
+                  borderColor="teal"
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Email :</FormLabel>
+                <Input
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={handleChange}
+                  borderColor="teal"
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Gen :</FormLabel>
+                <Input
+                  type="text"
+                  name="gen"
+                  value={gen}
+                  onChange={handleChange}
+                  borderColor="teal"
+                />
+              </FormControl>
+              <Button type="submit" me="auto" mt={4} colorScheme="teal">
+                Save
+              </Button>
+            </form>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+};
 
-    handleSubmit(e) {
-        e.preventDefault();
-        this.props.saveChanges(this.state.id, this.state);
-        this.setState({
-            name: '',
-            email: '',
-            gen: ''
-        })
-    }
-
-
-    render() {
-        return (
-            <div className="modal">
-                <div className="modal-content">
-                    <form onSubmit={this.handleSubmit}>
-                        <h1>Edit User</h1>
-                        <label>
-                            Name:
-                            <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
-                        </label>
-                        <br />
-                        <label>
-                            Email:
-                            <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
-                        </label>
-                        <br />
-                        <label>
-                            Gen:
-                            <input type="text" name="gen" value={this.state.gen} onChange={this.handleChange} />
-                        </label>
-                        <br />
-                        <button type="submit" onClick={this.props.saveChanges}>Save</button>
-                        <span className="close" onClick={this.props.modalClose}>&times;</span>
-                    </form>
-                </div>
-            </div>
-        );
-    }
-}
+export default EditUsersForm;
